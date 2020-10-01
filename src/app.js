@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 app.use((err, req, res, next) => {
   const { name, message, stack } = err;
-  if(name === 'ValidationError') {
+  if(name === 'ValidationError' || name == 'ValidationRequiredError') {
     res.status(400).json({ error: message })
   } else if (name === 'RecursoIndevidoError') {
     res.status(403).json({ error: message })

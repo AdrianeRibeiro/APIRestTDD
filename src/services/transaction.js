@@ -1,3 +1,6 @@
+const ValidationRequiredError = require('../errors/ValidationRequiredError')
+const ValidationError = require('../errors/ValidationError')
+
 module.exports = (app) => {
   const find = (userId, filter = {}) => {
     return app.db('transactions')
@@ -8,6 +11,18 @@ module.exports = (app) => {
   }
 
   const save = (transaction) => {
+    if (!transaction.description) throw new ValidationRequiredError('Descrição')
+    if (!transaction.amount) throw new ValidationRequiredError('Valor')
+    if (!transaction.date) throw new ValidationRequiredError('Data')
+    if (!transaction.acc_id) throw new ValidationRequiredError('Conta')
+    if (!transaction.type) throw new ValidationRequiredError('Tipo')
+
+    if(!(transaction.type === 'I' || transaction.type === 'O')) throw new ValidationError('Tipo inválido')
+
+    if((transaction.type === 'I' && transaction.amount < 0) || (transaction.type === 'O' && transaction.amount > 0)) {
+      transaction.amount *= -1
+    }
+
     return app.db('transactions')
       .insert(transaction, '*')
   }
