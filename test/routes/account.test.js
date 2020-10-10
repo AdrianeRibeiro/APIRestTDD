@@ -69,7 +69,7 @@ test('Deve listar apenas as contas do usuário', () => {
 
 test('Deve retornar uma conta por Id', () => {
   return app.db('accounts')
-    .insert({name: 'Acc By id', user_id: user.id}, ['id'])
+    .insert({name: 'Acc By id', user_id: user.id}, '*')
     .then(acc => request(app).get(`${MAIN_ROUTE}/${acc[0].id}`)
       .set('authorization', `bearer ${user.token}`))
     .then((res) => {

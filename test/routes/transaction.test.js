@@ -10,9 +10,10 @@ let accUser2
 
 beforeAll(async () => {
   //limpar o banco
-  await app.db('transactions').del()
-  await app.db('accounts').del()
-  await app.db('users').del()
+  await app.db('transactions').del();
+  await app.db('transfers').del();
+  await app.db('accounts').del();
+  await app.db('users').del();
 
   const users = await app.db('users').insert([
     { name: 'User #1', mail: 'user@mail.com', passwd: '$2a$10$N25w6YP9amXoKZexqzgcner10vcClBBOVYopI1tw9ANDyx6Rw.QXu' },

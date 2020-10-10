@@ -31,7 +31,7 @@ module.exports = (app) => {
 
   router.get('/:id', (req, res, next) => {
     app.services.account.find({ id: req.params.id })
-      .then(result => result.status(200).json(result))
+      .then(result => res.status(200).json(result))
       .catch(err => next(err))
   })
 

@@ -26,6 +26,7 @@ test('Deve listar todos os usuários', () => {
 test('Deve inserir usuário com sucesso', () => {
   return request(app).post(MAIN_ROUTE)
     .send({ name: 'Walter Mitty', mail: mail, passwd: 'walter' })
+    .set('authorization', `bearer ${user.token}`)
     .then((res) => {
       expect(res.status).toBe(201);
       expect(res.body.name).toBe('Walter Mitty');
@@ -48,7 +49,7 @@ test('Deve armazenar senha criptografada', async() => {
 
 test('Não deve inserir usuário sem nome', () => {
   return request(app).post(MAIN_ROUTE)
-    .send({ mail: 'invalido@email.com', passwd: '123456'})
+    .send({ mail: 'walter@mail.com', passwd: '123456'})
     .set('authorization', `bearer ${user.token}`)
     .then((res) => {
       expect(res.status).toBe(400);
@@ -56,18 +57,20 @@ test('Não deve inserir usuário sem nome', () => {
     })
 });
 
-
 test('Não deve inserir usuário sem email', async () => {
   const result = await request(app).post(MAIN_ROUTE)
     .send({ name: "name", passwd: '123456'})
     .set('authorization', `bearer ${user.token}`)
-  expect(result.status).toBe(400);
-  expect(result.body.error).toBe('Email é um atributo obrigatório');
+    .then((res) => {
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('Email é um atributo obrigatório');
+    })
 });
 
 test('Não deve inserir usuário sem senha', (done) => {
   request(app).post(MAIN_ROUTE)
     .send({ name: 'adriane', mail: 'adriane@artia.com' })
+    .set('authorization', `bearer ${user.token}`)
     .then((res) => {
       expect(res.status).toBe(400);
       expect(res.body.error).toBe('Senha é um atributo obrigatório');

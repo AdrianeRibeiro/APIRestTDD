@@ -3,9 +3,10 @@ const express = require('express');
 module.exports = (app) => {
   const router = express.Router()
 
-  router.get('/', (req, res) => {
+  router.get('/', (req, res, next) => {
     app.services.user.findAll()
-      .then(result => res.status(200).json(result));
+      .then(result => res.status(200).json(result))
+      .catch(err => next(err))
   });
 
   router.post('/', async (req, res, next) => {
