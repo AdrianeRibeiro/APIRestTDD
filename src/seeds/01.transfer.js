@@ -8,6 +8,7 @@ exports.seed = (knex) => {
       { id: 10000, name: 'User #1', mail: 'user@mail.com', passwd: '$2a$10$N25w6YP9amXoKZexqzgcner10vcClBBOVYopI1tw9ANDyx6Rw.QXu' },
       { id: 10001, name: 'User #2', mail: 'user2@mail.com', passwd: '$2a$10$N25w6YP9amXoKZexqzgcner10vcClBBOVYopI1tw9ANDyx6Rw.QXu' }
     ]))
+    
     .then(() => knex('accounts').insert([
       { id: 10000, name: 'AccO #1', user_id: 10000 },
       { id: 10001, name: 'AccD #1', user_id: 10000 },

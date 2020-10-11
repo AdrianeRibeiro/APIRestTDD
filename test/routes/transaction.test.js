@@ -16,8 +16,8 @@ beforeAll(async () => {
   await app.db('users').del();
 
   const users = await app.db('users').insert([
-    { name: 'User #1', mail: 'user@mail.com', passwd: '$2a$10$N25w6YP9amXoKZexqzgcner10vcClBBOVYopI1tw9ANDyx6Rw.QXu' },
-    { name: 'User #2', mail: 'user2@mail.com', passwd: '$2a$10$N25w6YP9amXoKZexqzgcner10vcClBBOVYopI1tw9ANDyx6Rw.QXu' }
+    { name: 'User #1', mail: 'User#1@mail.com', passwd: '$2a$10$N25w6YP9amXoKZexqzgcner10vcClBBOVYopI1tw9ANDyx6Rw.QXu' },
+    { name: 'User #2', mail: 'User#2@mail.com', passwd: '$2a$10$N25w6YP9amXoKZexqzgcner10vcClBBOVYopI1tw9ANDyx6Rw.QXu' }
   ], '*')
   
   user = users[0]
